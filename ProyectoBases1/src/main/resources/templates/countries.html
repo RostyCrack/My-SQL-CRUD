@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div>
+        <h2>Countries</h2>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/countries/new}">Add New Country</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger text-center">
+        [[${error}]]
+    </div>
+
+    <div class="container-fluid text-center">
+        <form class="form-inline" th:action="@{/countries/}">
+            <div class="form-group mb-2">
+                <label>Search: </label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="keyword" class="form-control" id="keyword" th:value="${keyword}" placeholder="Search..." required>
+            </div>
+            <input type="submit" class="btn btn-primary mb-2" value="Search">
+            &nbsp;&nbsp;
+            <input type="button" class="btn btn-secondary mb-2" value="Clear" onclick="clearFields()">
+        </form>
+        <div class="container-fluid text-right">
+            <button class="btn btn-secondary mb-2" onclick="home()">Home</button>
+        </div>
+        <br>
+        <table class="table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Continent</th>
+                    <th>Region</th>
+                    <th>Surface Area</th>
+                    <th>Independence Year</th>
+                    <th>Population</th>
+                    <th>Life Expectancy</th>
+                    <th>GNP</th>
+                    <th>GNP Old</th>
+                    <th>Local Name</th>
+                    <th>Government Form</th>
+                    <th>Head Of State</th>
+                    <th>Capital</th>
+                    <th>Code 2</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <th:block th:each="country : ${listCountries}">
+                <tr>
+                    <td>[[${country.code}]]</td>
+                    <td>[[${country.name}]]</td>
+                    <td>[[${country.continent}]]</td>
+                    <td>[[${country.region}]]</td>
+                    <td>[[${country.surfaceArea}]]</td>
+                    <td>[[${country.indepYear}]]</td>
+                    <td>[[${country.population}]]</td>
+                    <td>[[${country.lifeExpectancy}]]</td>
+                    <td>[[${country.gnp}]]</td>
+                    <td>[[${country.gnpOld}]]</td>
+                    <td>[[${country.localName}]]</td>
+                    <td>[[${country.governmentForm}]]</td>
+                    <td>[[${country.headOfState}]]</td>
+                    <td>[[${country.capital}]]</td>
+                    <td>[[${country.code2}]]</td>
+                    <td>
+                        <a th:href="@{'/countries/edit/' + ${country.code}}">Edit</a>
+
+                        <a th:href="@{'/countries/delete/' + ${country.code}}">Delete</a>
+                    </td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function clearFields(){
+        window.location = "/countries"
+    }
+
+    function home(){
+        window.location = "/"
+    }
+</script>
+</body>
+</html>

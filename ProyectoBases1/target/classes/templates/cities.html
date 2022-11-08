@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cities</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div>
+        <h2>Cities</h2>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/cities/new}">Add New City</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger text-center">
+        [[${error}]]
+    </div>
+
+    <div class="container-fluid text-center">
+        <form class="form-inline" th:action="@{/cities/}">
+            <div class="form-group mb-2">
+                <label>Search: </label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="keyword" class="form-control" id="keyword" th:value="${keyword}" placeholder="Search..." required>
+            </div>
+            <input type="submit" class="btn btn-primary mb-2" value="Search">
+            &nbsp;&nbsp;
+            <input type="button" class="btn btn-secondary mb-2" value="Clear" onclick="clearFields()">
+        </form>
+        <br>
+
+        <div>
+            <button class="btn btn-secondary" onclick="home()">Home</button>
+        </div>
+
+        <table class="table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Country Code</th>
+                <th>District</th>
+                <th>Population</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <th:block th:each="city : ${listCities}">
+                <tr>
+                    <td>[[${city.id}]]</td>
+                    <td>[[${city.name}]]</td>
+                    <td>[[${city.countryCode}]]</td>
+                    <td>[[${city.district}]]</td>
+                    <td>[[${city.population}]]</td>
+                    <td>
+                        <a th:href="@{'/cities/edit/' + ${city.id}}">Edit</a>
+
+                        <a th:href="@{'/cities/delete/' + ${city.id}}">Delete</a>
+                    </td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function clearFields(){
+        window.location = "/cities"
+    }
+
+    function home(){
+        window.location ="/"
+    }
+</script>
+</body>
+</html>

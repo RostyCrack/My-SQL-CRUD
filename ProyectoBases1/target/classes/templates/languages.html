@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Languages</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div>
+        <h2>Languages</h2>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/languages/new}">Add New Language</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger text-center">
+        [[${error}]]
+    </div>
+
+    <div class="container-fluid text-center">
+        <form class="form-inline" th:action="@{/languages/}">
+            <div class="form-group mb-2">
+                <label>Search: </label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="keyword" class="form-control" id="keyword" th:value="${keyword}" placeholder="Search..." required>
+            </div>
+            <input type="submit" class="btn btn-primary mb-2" value="Search">
+            &nbsp;&nbsp;
+            <input type="button" class="btn btn-secondary mb-2" value="Clear" onclick="clearFields()">
+        </form>
+        <br>
+
+        <div>
+            <button class="btn btn-secondary" onclick="home()">Home</button>
+        </div>
+
+        <table class="table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Country Code</th>
+                <th>Language</th>
+                <th>Is Official</th>
+                <th>Percentage</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <th:block th:each="language: ${listCountryLanguages}">
+                <tr>
+                    <td>[[${language.countryCode}]]</td>
+                    <td>[[${countryLanguage.language}]]</td>
+                    <td>[[${countryLanguage.isOfficial}]]</td>
+                    <td>[[${countryLanguage.percentage}]]</td>
+                    <td>
+                        <a th:href="@{'/languages/edit/' + ${countryLanguage.language}}">Edit</a>
+
+                        <a th:href="@{'/languages/delete/' + ${countryLanguage.language}}">Delete</a>
+                    </td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function clearFields(){
+        window.location = "/languages"
+    }
+
+    function home(){
+        window.location ="/"
+    }
+</script>
+</body>
+</html>

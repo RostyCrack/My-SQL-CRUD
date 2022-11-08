@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Proyecto De Bases</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div class="container-fluid" id="navbar">
+        <a th:href="@{/countries}">
+            <button type="button" class="btn btn-primary botonmenu">Paises</button>
+        </a>
+        <a th:href="@{/cities}">
+            <button type="button" class="btn btn-primary botonmenu">Ciudades</button>
+        </a>
+        <a th:href="@{/languages}">
+            <button type="button" class="btn btn-primary botonmenu">Idiomas</button>
+        </a>
+    </div>
+    <div class="container-fluid text-center">
+        <h1> Bienvenido a la base de datos world :D</h1>
+    </div>
+</body>
+</html>
